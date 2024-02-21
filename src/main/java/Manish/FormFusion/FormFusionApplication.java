@@ -18,14 +18,26 @@ public class FormFusionApplication {
         System.out.println("Success");
     }
 
+//    @Bean
+//    public WebMvcConfigurer corsConfigurer() {
+//        return new WebMvcConfigurer() {
+//            public void addCorsMappings(CorsRegistry registry) {
+//				System.out.println("Inside...");
+//                registry.addMapping("/**")
+//                        .allowedMethods("*")
+//                        .allowedOrigins("http://localhost:3000");
+//            }
+//        };
+//    }
+
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             public void addCorsMappings(CorsRegistry registry) {
-				System.out.println("Inside...");
+                System.out.println("Inside...");
                 registry.addMapping("/**")
                         .allowedMethods("*")
-                        .allowedOrigins("http://localhost:3000");
+                        .allowedOrigins("https://form-fusion.netlify.app/");
             }
         };
     }
