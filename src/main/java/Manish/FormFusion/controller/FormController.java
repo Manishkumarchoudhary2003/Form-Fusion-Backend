@@ -102,7 +102,7 @@ public class FormController {
                     .orElseThrow(() -> new EntityNotFoundException("Form not found with ID: " + formId));
 
 //            String url = "http://localhost:8080/form/" + userId + "/" + formId;
-            String url = "https://form-fusion.netlify.app/" + userId + "/" + formId;
+            String url = "https://form-fusion.netlify.app/form/" + userId + "/" + formId;
             form.setLink(url);
             formRepository.save(form);
             if (form.getQuestions().isEmpty()) {
