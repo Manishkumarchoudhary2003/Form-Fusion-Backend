@@ -37,7 +37,7 @@ public class FormFusionApplication {
                 System.out.println("Inside...");
                 registry.addMapping("/**")
                         .allowedMethods("*")
-                        .allowedOrigins("https://form-fusion.netlify.app/");
+                        .allowedOrigins("https://form-fusion.netlify.app");
             }
         };
     }
