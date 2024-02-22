@@ -32,7 +32,7 @@ public class UserService implements UserDetailsService {
         String rawPassword = user.getPassword();
         if (rawPassword != null) {
             user.setPassword(passwordEncoder.encode(rawPassword));
-            user.setRole("USER_ROLES");
+            user.setRole("ADMIN_ROLES");
             userRepository.save(user);
             return "User Added Successfully";
         } else {
