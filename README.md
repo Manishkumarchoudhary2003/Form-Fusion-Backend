@@ -17,7 +17,7 @@ Form Fusion Backend is the server-side application built using Spring Boot. It m
 - Maven for dependency management
 
 ## Installation
-1. Clone the repository: `git clone https://github.com/example/backend.git`
+1. Clone the repository: `https://github.com/Manishkumarchoudhary2003/Form-Fusion-Backend.git`
 2. Navigate to the project directory: `cd backend`
 3. Build the project: `./gradlew build`
 4. Run the project: `./gradlew bootRun`
