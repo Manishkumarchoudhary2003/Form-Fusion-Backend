@@ -16,11 +16,29 @@ Form Fusion Backend is the server-side application built using Spring Boot. It m
 - MySql
 - Maven for dependency management
 
-## Installation
-1. Clone the repository: `https://github.com/Manishkumarchoudhary2003/Form-Fusion-Backend.git`
-2. Navigate to the project directory: `cd backend`
+# Installation
+
+To run Form Fusion locally, follow these steps:
+
+1. Clone the repository: `git clone https://github.com/example/repository.git`
+2. Navigate to the project directory: `cd project-directory`
 3. Build the project: `./gradlew build`
-4. Run the project: `./gradlew bootRun`
+
+### MySQL Configuration
+
+Before running the project, ensure MySQL is installed and configured. 
+Follow these steps to set up the database:
+
+1. Install MySQL if not already installed.
+2. Create a new database for Form Fusion.
+3. Update the application.properties file with the database configuration:
+
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/your_database
+spring.datasource.username=your_username
+spring.datasource.password=your_password
+```
+
 
 ## Usage
 - Access the application through the provided endpoints.
