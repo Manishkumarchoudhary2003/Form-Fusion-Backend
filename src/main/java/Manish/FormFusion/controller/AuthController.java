@@ -1,8 +1,10 @@
 package Manish.FormFusion.controller;
 
+import Manish.FormFusion.entity.AuthOTP;
 import Manish.FormFusion.entity.AuthRequest;
 import Manish.FormFusion.entity.User;
 import Manish.FormFusion.filter.JwtService;
+import Manish.FormFusion.repository.UserRepository;
 import Manish.FormFusion.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +28,9 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private JwtService jwtService;
 
     @GetMapping("/welcome")
@@ -33,10 +38,11 @@ public class AuthController {
         return "Welcome to Form Fusion !!";
     }
 
-    //    @PostMapping("/register")
+    //        @PostMapping("/register")
 //    public String register(@RequestBody User user) {
 //        return userService.addUser(user);
 //    }
+
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody User user) {
         if (userService.isEmailAlreadyRegistered(user.getEmail())) {
@@ -48,14 +54,44 @@ public class AuthController {
     }
 
 
+    @PostMapping("/verify")
+    public String verifyUser(@RequestBody AuthOTP authOTP) {
+        try {
+            userService.verify(authOTP.getEmail(), authOTP.getOtp());
+            return "User verified successfully";
+        } catch (RuntimeException e) {
+            return e.getMessage();
+        }
+    }
+
+
     @PostMapping("/login")
     public String login(@RequestBody AuthRequest authRequest) {
-        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
+        // Check if the user is verified
+        User user = userRepository.findByEmail(authRequest.getEmail());
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        } else if (!user.getVerified()) {
+            throw new RuntimeException("Email not verified");
+        }
+
+        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(),
+                authRequest.getPassword()));
         if (authenticate.isAuthenticated()) {
             return jwtService.generateToken(authRequest.getEmail());
         } else {
-            throw new UsernameNotFoundException("Invalid user request");
+            throw new UsernameNotFoundException("Invalid credentials");
         }
     }
+
+//    @PostMapping("/login")
+//    public String login(@RequestBody AuthRequest authRequest) {
+//        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
+//        if (authenticate.isAuthenticated()) {
+//            return jwtService.generateToken(authRequest.getEmail());
+//        } else {
+//            throw new UsernameNotFoundException("Invalid user request");
+//        }
+//    }
 
 }
