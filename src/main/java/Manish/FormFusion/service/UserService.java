@@ -47,7 +47,7 @@ public class UserService implements UserDetailsService {
         String otp = generateOTP();
         System.out.println("OPT Generated ............");
         user.setPassword(passwordEncoder.encode(rawPassword));
-        user.setRole("USER_ROLES");
+        user.setRole("ADMIN_ROLES");
         user.setOtp(otp);
 
         User savedUser = userRepository.save(user);
